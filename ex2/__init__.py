@@ -1,4 +1,7 @@
+import functools
+
 from ex2 import fetcher
+import time
 
 CALL_COUNT = 10
 
@@ -10,9 +13,22 @@ def benchmark(num):
     :param num: число итераций
     :return: функцию обёртку
     """
+
     def wrapper(func):
-        # put your code here
-        pass
+        @functools.wraps(func)
+        def inner(*args, **kwargs):
+            total_time = 0
+            counter = 0
+            while counter != num:
+                start_time = time.time()
+                func(*args, **kwargs)
+                end_time = time.time()
+                spent_time = end_time - start_time
+                total_time += spent_time
+                counter += 1
+                print(f'Прогон {counter} время выполнения прогона: {spent_time}')
+            print(f'Среднее время всех прогонов: {total_time / num}')
+        return inner
     return wrapper
 
 
