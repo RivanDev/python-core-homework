@@ -1,19 +1,19 @@
 from ex1.mapping import RAW_MAPPING
 
 
-def build_roles_tree(mapping_data):
+def build_roles_tree(mapping):
     """
-    :param mapping_data: маппинг ролей в категории
+    :param mapping: маппинг ролей в категории
     :return: дерево ролей
     """
 
-    categories = mapping_data.get('categories')
-    roles = mapping_data.get('roles')
+    categories = mapping.get('categories')
+    roles = mapping.get('roles')
 
     for role in roles.values():
         role['text'] = role.pop('name')
 
-    sorted_list = mapping_data.get('categoryIdsSorted')
+    sorted_list = mapping.get('categoryIdsSorted')
     full_categories = {'categories': []}
 
     for category_id in sorted_list:
